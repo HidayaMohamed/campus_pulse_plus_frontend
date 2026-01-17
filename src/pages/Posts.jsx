@@ -83,3 +83,45 @@ const Posts = () => {
           </p>
         </div>
       </section>
+
+      {/* Search & Filters Section */}
+      <section className="py-16 bg-white relative z-20 rounded-t-[3rem] -mt-8 shadow-[-20px_0_40px_rgba(0,0,0,0.05)]">
+        <div className="max-w-7xl mx-auto px-8">
+          <div className="max-w-4xl mx-auto bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-200">
+            {/* Search Bar */}
+            <div className="p-8 border-b border-gray-200">
+              <div className="relative max-w-md mx-auto">
+                <input
+                  type="text"
+                  placeholder="Search posts by content..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-full py-4 pr-4 pl-12 border-2 border-gray-200 rounded-full text-base bg-gray-50 transition-all focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 focus:bg-white"
+                />git@github.com:HidayaMohamed/campus_pulse_plus_frontend.git
+              </div>
+            </div>
+
+            {/* Filters Row */}
+            <div className="p-6 flex flex-col md:flex-row justify-between items-center gap-4">
+              <div className="flex items-center gap-2">
+                <select
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value)}
+                  className="px-4 py-3 border border-gray-300 rounded-lg bg-white text-sm cursor-pointer transition-all focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10"
+                >
+                  <option value="newest">Newest First</option>
+                  <option value="oldest">Oldest First</option>
+                </select>
+              </div>
+
+              <Link
+                to="/create"
+                className="inline-flex items-center gap-2 px-6 py-3.5 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-full font-semibold text-sm no-underline transition-all hover:from-blue-600 hover:to-blue-700 hover:-translate-y-1 hover:shadow-xl shadow-lg"
+              >
+                Share Your Voice
+              </Link>
+            </div>
+
+          </div>
+        </div>
+      </section>
