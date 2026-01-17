@@ -50,3 +50,78 @@ const Posts = () => {
       </div>
     );
   }
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      {/* Hero Section */}
+      <section className="relative w-full h-[70vh] overflow-hidden flex items-center justify-center">
+        <div className="absolute inset-0">
+          <img
+            src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1200&auto=format&fit=crop"
+            alt="Community Posts"
+            className="w-full h-full object-cover"
+            loading="eager"
+          />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/80"></div>
+        <div className="relative z-30 text-center px-4 max-w-4xl mx-auto">
+          <Link
+            to="/"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-white no-underline font-medium text-sm mb-8 transition-all hover:bg-white/20"
+          >
+            Back to Home
+          </Link>
+          <h1 className="text-6xl md:text-7xl font-black text-white mb-4 drop-shadow-lg tracking-tight leading-tight">
+            Community <br />
+            <span className="bg-gradient-to-r from-white to-blue-400 bg-clip-text text-transparent font-extrabold">
+              Voice
+            </span>
+          </h1>
+          <p className="text-xl text-white/90 font-medium leading-relaxed max-w-2xl mx-auto">
+            Discover what your fellow students are saying. Every post matters
+            in building a better campus community.
+          </p>
+        </div>
+      </section>
+
+      {/* Search & Filters Section */}
+      <section className="py-16 bg-white relative z-20 rounded-t-[3rem] -mt-8 shadow-[-20px_0_40px_rgba(0,0,0,0.05)]">
+        <div className="max-w-7xl mx-auto px-8">
+          <div className="max-w-4xl mx-auto bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-200">
+            {/* Search Bar */}
+            <div className="p-8 border-b border-gray-200">
+              <div className="relative max-w-md mx-auto">
+                <input
+                  type="text"
+                  placeholder="Search posts by content..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-full py-4 pr-4 pl-12 border-2 border-gray-200 rounded-full text-base bg-gray-50 transition-all focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 focus:bg-white"
+                />git@github.com:HidayaMohamed/campus_pulse_plus_frontend.git
+              </div>
+            </div>
+
+            {/* Filters Row */}
+            <div className="p-6 flex flex-col md:flex-row justify-between items-center gap-4">
+              <div className="flex items-center gap-2">
+                <select
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value)}
+                  className="px-4 py-3 border border-gray-300 rounded-lg bg-white text-sm cursor-pointer transition-all focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10"
+                >
+                  <option value="newest">Newest First</option>
+                  <option value="oldest">Oldest First</option>
+                </select>
+              </div>
+
+              <Link
+                to="/create"
+                className="inline-flex items-center gap-2 px-6 py-3.5 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-full font-semibold text-sm no-underline transition-all hover:from-blue-600 hover:to-blue-700 hover:-translate-y-1 hover:shadow-xl shadow-lg"
+              >
+                Share Your Voice
+              </Link>
+            </div>
+
+          </div>
+        </div>
+      </section>
