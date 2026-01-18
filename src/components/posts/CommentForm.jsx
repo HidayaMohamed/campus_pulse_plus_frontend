@@ -129,3 +129,84 @@ export default function CommentForm({ postId, refresh }) {
       setUploading(false);
     }
   }
+  return (
+    <div className="mt-4">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+        <div className="flex gap-2">
+          <input
+            type="text"
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            placeholder="Add a comment..."
+            className="border p-2 flex-1 rounded"
+          />
+          <button
+            type="button"
+            onClick={() => fileInputRef.current?.click()}
+            className="bg-gray-100 text-gray-700 px-3 py-2 rounded hover:bg-gray-200"
+          >
+            <ImageIcon size={16} />
+          </button>
+          <button
+            type="submit"
+            disabled={uploading}
+            className="bg-blue-600 text-white px-4 py-2 rounded disabled:opacity-50"
+          >
+            {uploading ? "Uploading..." : "Comment"}
+          </button>
+        </div>
+
+        {/* Hidden file input */}
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept="image/*"
+          onChange={handleFileUpload}
+          style={{ display: "none" }}
+        />
+
+        {/* Image Preview */}
+        {imageUrl && (
+          <div className="relative inline-block">
+            <img
+              src={imageUrl}
+              alt="Comment preview"
+              className="w-20 h-20 object-cover rounded cursor-pointer border"
+              onClick={() => setImageModal(imageUrl)}
+            />
+            <button
+              type="button"
+              onClick={handleRemoveImage}
+              className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs"
+            >
+              ×
+            </button>
+          </div>
+        )}
+
+        {/* Image Modal */}
+        {imageModal && (
+          <div
+            className="fixed inset-0 bg-black/80 flex items-center justify-center z-50"
+            onClick={() => setImageModal(null)}
+          >
+            <div className="relative max-w-4xl max-h-full p-4">
+              <img
+                src={imageModal}
+                alt="Expanded comment image"
+                className="max-w-full max-h-full object-contain"
+                onClick={(e) => e.stopPropagation()}
+              />
+              <button
+                onClick={() => setImageModal(null)}
+                className="absolute top-4 right-4 bg-white/20 text-white p-2 rounded-full hover:bg-white/40 transition-colors"
+              >
+                ✕
+              </button>
+            </div>
+          </div>
+        )}
+      </form>
+    </div>
+  );
+};
