@@ -9,6 +9,7 @@ export default function CommentForm({ postId, refresh }) {
   const [uploading, setUploading] = useState(false);
   const [imageModal, setImageModal] = useState(null);
   const fileInputRef = useRef(null);
+
   const handleFileUpload = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -35,6 +36,7 @@ export default function CommentForm({ postId, refresh }) {
       fileInputRef.current.value = "";
     }
   };
+
   const uploadToCloudinary = async (file) => {
     const cloudName = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
     const uploadPreset = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
@@ -71,13 +73,16 @@ export default function CommentForm({ postId, refresh }) {
     if (!response.ok) {
       const errorText = await response.text();
       console.error("Cloudinary upload failed:", errorText);
-      throw new Error(`Failed to upload image: ${response.status} ${errorText}`);
+      throw new Error(
+        `Failed to upload image: ${response.status} ${errorText}`,
+      );
     }
 
     const data = await response.json();
     console.log("Cloudinary upload success:", data.secure_url);
     return data.secure_url;
   };
+
   async function handleSubmit(e) {
     e.preventDefault();
     if (!content.trim()) return;
@@ -129,6 +134,7 @@ export default function CommentForm({ postId, refresh }) {
       setUploading(false);
     }
   }
+
   return (
     <div className="mt-4">
       <form onSubmit={handleSubmit} className="flex flex-col gap-3">
@@ -209,4 +215,4 @@ export default function CommentForm({ postId, refresh }) {
       </form>
     </div>
   );
-};
+}
