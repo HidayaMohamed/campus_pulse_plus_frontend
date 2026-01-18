@@ -35,3 +35,46 @@ export default function CommentForm({ postId, refresh }) {
       fileInputRef.current.value = "";
     }
   };
+  const uploadToCloudinary = async (file) => {
+    const cloudName = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
+    const uploadPreset = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
+
+    console.log("Cloudinary config:", { cloudName, uploadPreset });
+
+    if (
+      !cloudName ||
+      !uploadPreset ||
+      cloudName === "your-cloud-name" ||
+      uploadPreset === "your-upload-preset"
+    ) {
+      throw new Error(
+        "Image upload not configured. Please set up Cloudinary credentials in .env file.",
+      );
+    }
+
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", uploadPreset);
+
+    console.log("Uploading to Cloudinary...");
+
+    const response = await fetch(
+      `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
+      {
+        method: "POST",
+        body: formData,
+      },
+    );
+
+    console.log("Cloudinary response status:", response.status);
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("Cloudinary upload failed:", errorText);
+      throw new Error(`Failed to upload image: ${response.status} ${errorText}`);
+    }
+
+    const data = await response.json();
+    console.log("Cloudinary upload success:", data.secure_url);
+    return data.secure_url;
+  };
