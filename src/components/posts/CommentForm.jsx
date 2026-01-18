@@ -78,3 +78,54 @@ export default function CommentForm({ postId, refresh }) {
     console.log("Cloudinary upload success:", data.secure_url);
     return data.secure_url;
   };
+  async function handleSubmit(e) {
+    e.preventDefault();
+    if (!content.trim()) return;
+
+    try {
+      let finalImageUrl = null;
+
+      if (uploadedFile) {
+        setUploading(true);
+        finalImageUrl = await uploadToCloudinary(uploadedFile);
+        setUploading(false);
+      }
+
+      const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:5000";
+      const response = await fetch(`${apiUrl}/api/comments`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({
+          content,
+          post_id: postId,
+          image: finalImageUrl,
+        }),
+      });
+
+      if (response.ok) {
+        toast.success("Comment added!");
+        setContent("");
+        setImageUrl("");
+        setUploadedFile(null);
+        refresh();
+      } else {
+        const errorData = await response.json();
+        toast.error(errorData.error || "Failed to add comment");
+      }
+    } catch (error) {
+      console.error("Comment submission error:", error);
+      if (error.message.includes("Image upload not configured")) {
+        toast.error(error.message);
+      } else if (error.message.includes("Failed to upload image")) {
+        toast.error(
+          "Failed to upload image to Cloudinary. Please check your configuration.",
+        );
+      } else {
+        toast.error("Network error. Please try again.");
+      }
+      setUploading(false);
+    }
+  }
