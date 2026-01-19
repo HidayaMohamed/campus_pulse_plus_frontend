@@ -104,6 +104,28 @@ The app includes authentication context that handles:
 
 The frontend is designed to integrate with a backend API. Configure the API endpoint in your environment or API service layer.
 
+## Backend repository
+This is the URL for the frontend repo: https://github.com/HidayaMohamed/campus_pulse_plus_backend.git
+
+
+## Live Demo
+
+- Frontend: https://campuspulseplusfrontend.vercel.app
+- Backend API: https://campus-pulse-plus-backend.onrender.com
+
+
+##  Test Credentials
+
+Use the following accounts to test the application:
+
+### Admin User
+- Email: admin@campus.com
+- Password: admin123
+
+### Regular User
+- Email: student1@campus.com
+- Password: password1
+
 ## 📄 License
 
 MIT License - feel free to use this project for learning and development.
