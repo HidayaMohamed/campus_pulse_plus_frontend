@@ -105,7 +105,7 @@ The app includes authentication context that handles:
 The frontend is designed to integrate with a backend API. Configure the API endpoint in your environment or API service layer.
 
 ## Backend repository
-This is the URL for the frontend repo: https://github.com/HidayaMohamed/campus_pulse_plus_backend.git
+This is the URL for the backend repo: https://github.com/HidayaMohamed/campus_pulse_plus_backend.git
 
 
 ## Live Demo
